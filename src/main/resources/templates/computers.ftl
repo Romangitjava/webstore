@@ -14,7 +14,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-link">${product.price} </h5>
-                        <form class="form-group" action="/addToCart" method="post" >
+                        <form class="form-group" action="addToOrder/${product.id}" method="post" >
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button type="submit" class="btn btn-outline-success">Купить</button>
                         </form>

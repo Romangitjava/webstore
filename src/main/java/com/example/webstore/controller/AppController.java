@@ -1,6 +1,5 @@
 package com.example.webstore.controller;
 
-import com.example.webstore.entity.Cart;
 import com.example.webstore.entity.Product;
 import com.example.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,32 +35,6 @@ public class AppController {
         return "change";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String deleteProduct(@PathVariable(name = "id") Long id) {
-        productService.delete(id);
-        return "redirect:/change";
-    }
-    @GetMapping("/edit")
-    public String getEditPage(Model model) {
-        model.addAttribute("products", productService.getProducts());
-        return "edit";
-    }
-
-
-    @RequestMapping(value = "/edit/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product product)  {
-        Product currentProduct = productService.getProductsByID(id);
-        currentProduct.setManufacturer(product.getManufacturer());
-        currentProduct.setModel(product.getModel());
-        currentProduct.setPrice(product.getPrice());
-        currentProduct.setAmount(product.getAmount());
-        currentProduct.setDescription(product.getDescription());
-        currentProduct.setProductTypes(product.getProductTypes());
-        currentProduct.setFileName(product.getFileName());
-        productService.save(currentProduct);
-        return currentProduct;
-    }
-
     @RequestMapping(value = "/addProducts", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("products") Product product,
                              @RequestParam("file") MultipartFile file)  throws IOException {
@@ -78,4 +51,19 @@ public class AppController {
         productService.save(product);
         return "redirect:/change";
     }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteProduct(@PathVariable(name = "id") Long id) {
+        productService.delete(id);
+        return "redirect:/change";
+    }
+
+    @RequestMapping(value = "edit/{id}")
+    public String getUpdatePage(@PathVariable("id") Long id, Model model) {
+        Product product = productService.getProductsByID(id);
+        model.addAttribute("product", product);
+        return "edit";
+    }
+
+
 }

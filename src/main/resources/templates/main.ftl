@@ -17,11 +17,6 @@
                 <a href="/accessories" class="list-group-item mt-3 list-group-item-action list-group-item-success">Аксессуары</a>
             </div>
 
-            <div>
-                <a href=/change> Редактировать базу </a>
-            </div>
-
-
         </div>
 
         <div class="col">

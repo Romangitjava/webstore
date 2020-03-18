@@ -4,26 +4,33 @@
 
 
     <div class="row">
-    <#list cart as cart>
-        <div class="col-8">
+        <#list orders as orders>
+            <div class="col-7">
+                <div class="media">
+                    <img width="180" height="180" src="/img/${orders.product.fileName}" class="align-self-center mr-3" alt="...">
+                    <div class="media-body">
+                        <H6 class="mt-5"> ${orders.product.description}</H6>
+                        <form class="form-group" action="/deleteOrder/${orders.id}" method="post" >
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-outline-success">Удалить</button>
+                        </form>
+                    </div>
+                    <hr>
+                </div>
+            </div>
 
-                <ul class="list-unstyled">
-                    <li class="media">
-                        <img src="" class="mr-3" alt="...">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">List-based media object</h5>
+            <div class="col-2">
+                <div class="media-body">
+                    <h6 class="mt-4">Цена:</h6>
+                    <p>${orders.product.price}</p>
 
-                        </div>
-                    </li>
-                </ul>
+                    <h6>Колличество:</h6>
+                    <p>${orders.quantity}</p>
+                </div>
+            </div>
 
-        </div>
+        </#list>
 
-        <div class="col-4">
-            Колличество :  ${cart.quantity}
-
-        </div>
-    </#list>
     </div>
 
 </@c.page>

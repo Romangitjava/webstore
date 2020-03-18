@@ -8,5 +8,4 @@ public class WebStoreApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebStoreApplication.class, args);
     }
-
 }

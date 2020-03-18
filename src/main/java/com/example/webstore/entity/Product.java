@@ -1,6 +1,7 @@
 package com.example.webstore.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -16,9 +17,8 @@ public class Product {
     private String fileName;
     private String description;
 
-    @ManyToOne
-    @JoinColumn (name = "cart_id")
-    private Cart cart;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<Orders> orders;
 
     public Product() {
     }
@@ -87,11 +87,11 @@ public class Product {
         this.description = description;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<Orders> getOrder() {
+        return orders;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setOrder(List<Orders> orders) {
+        this.orders = orders;
     }
 }

@@ -4,7 +4,7 @@
 
 <div>
     <h2>Редактировать</h2>
-    <form action ="/edit/"  enctype="multipart/form-data">
+    <form action ="edit/${product.id}"  enctype="multipart/form-data">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <table border="0" cellpadding="10">
             <tr>
