@@ -18,10 +18,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToOne(cascade = CascadeType.ALL)
+   /* @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn (name = "cart_id", referencedColumnName = "id")
     private Cart cart;
-
+*/
     public User() {
     }
 
@@ -65,11 +65,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Cart getCart() {
+   /* public Cart getCart() {
         return cart;
     }
 
     public void setCart(Cart cart) {
         this.cart = cart;
-    }
+    }*/
 }

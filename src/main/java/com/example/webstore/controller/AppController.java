@@ -9,9 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 
 @Controller
@@ -38,16 +36,7 @@ public class AppController {
     @RequestMapping(value = "/addProducts", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("products") Product product,
                              @RequestParam("file") MultipartFile file)  throws IOException {
-        if(file != null) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + resultFileName));
-            product.setFileName(resultFileName);
-        }
+        productService.addFile(product, file);
         productService.save(product);
         return "redirect:/change";
     }
@@ -59,11 +48,17 @@ public class AppController {
     }
 
     @RequestMapping(value = "edit/{id}")
-    public String getUpdatePage(@PathVariable("id") Long id, Model model) {
+    public String getEditPage(@PathVariable("id") Long id, Model model) {
         Product product = productService.getProductsByID(id);
         model.addAttribute("product", product);
         return "edit";
     }
 
-
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
+    public String update(@ModelAttribute("product") Product product,
+                         @RequestParam("file") MultipartFile file)  throws IOException {
+        productService.addFile(product, file);
+        productService.save(product);
+        return "redirect:/change";
+    }
 }
