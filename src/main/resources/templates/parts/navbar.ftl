@@ -17,6 +17,13 @@
                 <a class="nav-link" href="/change"> База товаров <span class="sr-only">(current)</span></a>
             </li>
         </ul>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/user"> Список пользователей <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+
     </div>
 
 
