@@ -4,7 +4,7 @@
         ${massage}
     </#if>
     <form  action="/registration" method="post" >
-        Введите данные для регистрации
+        <h2>Введите данные для регистрации</h2>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <div class="form-group">
             <label for="formGroupExampleInput">Имя пользователя:</label>

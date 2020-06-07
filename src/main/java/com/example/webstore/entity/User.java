@@ -8,9 +8,9 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
-    private String username;
-    private String password;
+    private String username, password;
     private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -18,10 +18,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-   /* @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn (name = "cart_id", referencedColumnName = "id")
-    private Cart cart;
-*/
+    @OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "orders_id", referencedColumnName = "id")
+    private Orders orders;
+
     public User() {
     }
 
@@ -65,11 +65,11 @@ public class User {
         this.roles = roles;
     }
 
-   /* public Cart getCart() {
-        return cart;
+    public Orders getOrder() {
+        return orders;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }*/
+    public void setOrder(Orders orders) {
+        this.orders = orders;
+    }
 }

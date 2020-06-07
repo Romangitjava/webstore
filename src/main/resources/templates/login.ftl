@@ -2,7 +2,7 @@
 
 <@c.page>
     <form  action="/login" method="post" >
-        Ввадите имя пользователя
+        <h2>Введите имя пользователя</h2>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <div class="form-group">
             <label for="formGroupExampleInput">Имя пользователя:</label>

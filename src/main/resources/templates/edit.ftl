@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td> Описание:</td>
-                <td><textarea  cols="40" rows="3"  type="text">${product.description}</textarea></td>
+                <td><input type="text"  name="description" ${product.description}/></td>
             </tr>
             <tr>
                 <td> Колличество:</td>

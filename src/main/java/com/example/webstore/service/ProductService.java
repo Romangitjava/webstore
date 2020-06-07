@@ -3,16 +3,15 @@ package com.example.webstore.service;
 
 import com.example.webstore.entity.Product;
 import com.example.webstore.repos.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,11 +19,15 @@ import java.util.UUID;
 @Transactional
 public class ProductService  {
 
-    @Autowired
-    ProductRepository productRepository;
+
+    private final ProductRepository productRepository;
 
     @Value("${upload.path}")
     public String uploadPath;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public List<Product> getProducts() {
         return productRepository.findAll();
@@ -66,7 +69,7 @@ public class ProductService  {
         return productRepository.showAppliances();
     }
 
-    public void addFile(@ModelAttribute("products") Product product, @RequestParam("file") MultipartFile file) throws IOException {
+    public void addFile(Product product, MultipartFile file) throws IOException {
         if (file != null) {
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
@@ -76,6 +79,15 @@ public class ProductService  {
             String resultFileName = uuidFile + "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + resultFileName));
             product.setFileName(resultFileName);
+        }
+    }
+
+    public void removeFile(Product product) {
+        String fileName = product.getFileName();
+        try {
+            Files.deleteIfExists(Paths.get(uploadPath + "/" + fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
